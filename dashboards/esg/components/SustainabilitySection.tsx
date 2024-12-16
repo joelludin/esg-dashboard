@@ -13,7 +13,7 @@ export default function SustainabilitySection({ selectedIndustry, selectedCompan
   const [data, setData] = useState<CompanyData[]>([]);
 
   useEffect(() => {
-    fetch('/api/companies')
+    fetch('/dashboards/esg/api/companies')
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
