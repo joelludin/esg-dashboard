@@ -13,10 +13,19 @@ export default function SustainabilitySection({ selectedIndustry, selectedCompan
   const [data, setData] = useState<CompanyData[]>([]);
 
   useEffect(() => {
-    fetch('/dashboards/esg/api/companies')
-      .then(res => res.json())
-      .then(setData)
-      .catch(console.error);
+    console.log('🔄 Fetching data...');
+    fetch('/api/companies')
+      .then(res => {
+        console.log('📥 Response status:', res.status);
+        return res.json();
+      })
+      .then(data => {
+        console.log('📦 Received data:', data);
+        setData(data);
+      })
+      .catch(error => {
+        console.error('❌ Fetch error:', error);
+      });
   }, []);
 
   // Filter data based on selected filters
