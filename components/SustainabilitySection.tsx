@@ -1,39 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { CompanyData } from '../types';
+import { useData } from './DataContext';
 import { Zap, Droplet, Recycle, Factory, Building2, Plane, Check } from 'lucide-react';
+import { CompanyData } from '../types';
 
-interface SustainabilitySectionProps {
-  selectedIndustry: string;
-  selectedCompany: string;
-}
-
-export default function SustainabilitySection({ selectedIndustry, selectedCompany }: SustainabilitySectionProps) {
-  const [data, setData] = useState<CompanyData[]>([]);
-
-  useEffect(() => {
-    console.log('🔄 Fetching data...');
-    fetch('/api/companies')
-      .then(res => {
-        console.log('📥 Response status:', res.status);
-        return res.json();
-      })
-      .then(data => {
-        console.log('📦 Received data:', data);
-        setData(data);
-      })
-      .catch(error => {
-        console.error('❌ Fetch error:', error);
-      });
-  }, []);
-
-  // Filter data based on selected filters
-  const filteredData = data.filter(item => {
-    const matchesIndustry = !selectedIndustry || item['Company-Category'] === selectedIndustry;
-    const matchesCompany = !selectedCompany || item.Company === selectedCompany;
-    return matchesIndustry && matchesCompany;
-  });
+export default function SustainabilitySection() {
+  const { filteredData } = useData();
 
   // Helper function to render yes/no
   const renderYesNo = (value: string | undefined | null) => {

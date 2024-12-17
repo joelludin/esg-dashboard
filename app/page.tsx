@@ -1,36 +1,26 @@
 'use client';
 
-import { useState } from 'react';
-import SustainabilitySection from '@/components/SustainabilitySection';
-import DiversitySection from '@/components/DiversitySection';
-import StewardshipSection from '@/components/StewardshipSection';
+import { DataProvider } from '../components/DataContext';
+import { Filters } from '../components/Filters';
+import DiversitySection from '../components/DiversitySection';
+import StewardshipSection from '../components/StewardshipSection';
+import SustainabilitySection from '../components/SustainabilitySection';
 
-export default function Home() {
-  const [selectedIndustry, setSelectedIndustry] = useState('');
-  const [selectedCompany, setSelectedCompany] = useState('');
-
+export default function Dashboard() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">ESG Dashboard</h1>
+    <DataProvider>
+      <div className="container mx-auto p-4">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">ESG Dashboard - Prototype</h1>
+          <p className="text-gray-600 text-sm">This dashboard contains mock data for demonstration purposes only</p>
         </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-8 space-y-8">
-        <SustainabilitySection 
-          selectedIndustry={selectedIndustry}
-          selectedCompany={selectedCompany}
-        />
-        <DiversitySection 
-          selectedIndustry={selectedIndustry}
-          selectedCompany={selectedCompany}
-        />
-        <StewardshipSection 
-          selectedIndustry={selectedIndustry}
-          selectedCompany={selectedCompany}
-        />
-      </main>
-    </div>
+        <Filters />
+        <div className="space-y-8">
+          <SustainabilitySection />
+          <StewardshipSection />
+          <DiversitySection />
+        </div>
+      </div>
+    </DataProvider>
   );
 } 

@@ -1,30 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { CompanyData } from '../types';
+import { useData } from './DataContext';
 import { CircleDot, Circle, Check } from 'lucide-react';
 
-interface StewardshipSectionProps {
-  selectedIndustry: string;
-  selectedCompany: string;
-}
-
-export default function StewardshipSection({ selectedIndustry, selectedCompany }: StewardshipSectionProps) {
-  const [data, setData] = useState<CompanyData[]>([]);
-
-  useEffect(() => {
-    fetch('/api/companies')
-      .then(res => res.json())
-      .then(setData)
-      .catch(console.error);
-  }, []);
-
-  // Filter data based on selected filters
-  const filteredData = data.filter(item => {
-    const matchesIndustry = !selectedIndustry || item['Company-Category'] === selectedIndustry;
-    const matchesCompany = !selectedCompany || item.Company === selectedCompany;
-    return matchesIndustry && matchesCompany;
-  });
+export default function StewardshipSection() {
+  const { filteredData } = useData();
 
   // Helper function to render yes/no with null check
   const renderYesNo = (value: string | undefined | null) => {
