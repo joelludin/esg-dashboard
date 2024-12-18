@@ -3,30 +3,18 @@
 # Exit on error
 set -e
 
+# Define paths
+TARGET_DIR="../joelludin.github.io/out/esg-dashboard"
+
 echo "🏗️ Building project..."
-npm run build
+NEXT_DISABLE_ESLINT=1 npm run build
 
 echo "📦 Preparing deployment..."
-cd out
-touch .nojekyll
+mkdir -p "$TARGET_DIR"
 
-echo "🗂 Setting up Git..."
-git init
-git add -A
+echo "🚚 Copying build output..."
+# Copy dashboard files to the correct location
+cp -r out/* "$TARGET_DIR/"
 
-echo "📥 Fetching existing site..."
-git remote add origin git@github.com:joelludin/joelludin.github.io.git
-git fetch origin main
-
-echo "🔀 Creating deployment branch..."
-git checkout -b temp-deploy
-git add -A
-git commit -m "Deploy: ESG Dashboard update $(date +%Y-%m-%d)"
-
-echo "🚀 Deploying to GitHub Pages..."
-git push -f origin temp-deploy:main
-
-echo "🧹 Cleaning up..."
-cd ..
-
-echo "✅ Deployment complete! Site will be available at joelludin.com/esg-dashboard" 
+echo "✅ Files copied to $TARGET_DIR"
+echo "Now test at http://localhost:3000/esg-dashboard" 

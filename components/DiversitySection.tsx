@@ -7,14 +7,13 @@ export default function DiversitySection() {
   const { filteredData } = useData();
 
   // Helper function to render yes/no
-  const renderYesNo = (value: string) => {
-    return value.toLowerCase() === 'yes' ? (
-      <Check className="w-5 h-5 text-green-500" />
-    ) : null;
+  const renderYesNo = (value: string | undefined | null) => {
+    if (!value) return null;
+    return value.toLowerCase() === 'yes' ? <Check className="w-5 h-5 text-green-500" /> : null;
   };
 
   // Helper function to render the appropriate circle icon
-  const renderCircleIcon = (value: string | null) => {
+  const renderCircleIcon = (value: string | undefined | null) => {
     if (!value) return <Circle className="w-5 h-5 text-gray-300" />;
     
     switch (value.toLowerCase()) {

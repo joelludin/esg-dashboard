@@ -12,12 +12,6 @@ export default function StewardshipSection() {
     return value.toLowerCase() === 'yes' ? <Check className="w-5 h-5 text-green-500" /> : null;
   };
 
-  // Helper function to render attendance
-  const renderAttendance = (value: string | undefined | null) => {
-    if (!value || value === 'N/A') return 'N/A';
-    return value;
-  };
-
   // Helper function to render the circle icons with null check
   const renderCircleIcon = (value: string | undefined | null) => {
     if (!value) return <Circle className="w-5 h-5 text-gray-300" />;
